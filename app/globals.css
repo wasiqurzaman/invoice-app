@@ -2,20 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+    /* colors */
+    --color-primary: 12 93 250;
+    --color-primary-hover: 146 119 255;
+    --color-accent: 236 87 87;
+    --color-accent-hover: 255 151 151;
+    --color-text-main: 12 14 22;
+    --color-text-sm: 136 142 176;
+    --color-sidebar: 30 33 57;
+    --color-card: 255 255 255;
+    --color-card-2: 249 250 254;
+    --color-bg: 248 248 251;
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    --color-input-border: 223 227 250;
+    --color-input-border-active: 146 119 255;
+    --color-input-fill: 255 255 255;
+    --color-green: 51 214 159;
+    --color-orange: 255 143 0;
+  }
+
+  [data-theme="dark"] {
+    --color-primary: 12 93 250;
+    --color-primary-hover: 146 119 255;
+    --color-accent: 236 87 87;
+    --color-accent-hover: 255 151 151;
+    --color-text-main: 255 255 255;
+    --color-text-sm: 223 227 250;
+    --color-sidebar: 30 33 57;
+    --color-card: 30 33 57;
+    --color-card-2: 37 41 69;
+    --color-bg: 20 22 37;
+
+    --color-input-border: 37 41 69;
+    --color-input-border-active: 30 33 57;
+    --color-input-fill: 30 33 57;
+    --color-green: 51 214 159;
+    --color-orange: 255 143 0;
+  }
+
+  body {
+    @apply bg-bg font-primary font-medium text-[13px] tracking-[-0.25px] leading-[15px];
+  }
+
+  .heading-lg {
+    @apply font-primary font-bold text-[36px] tracking-[-1px] leading-[33px];
+  }
+  .heading-md {
+    @apply font-primary font-bold text-[24px] tracking-[-0.75px] leading-[22px];
+  }
+  .heading-sm {
+    @apply font-primary font-bold text-[15px] tracking-[-0.25px] leading-[24px];
+  }
+  .heading-sm-v {
+    @apply font-primary font-bold text-[15px] tracking-[-0.25px] leading-[15px];
+  }
+  .text-body {
+    @apply font-primary font-medium text-[13px] tracking-[-0.1px] leading-[18px];
+  }
+  .text-body-v {
+    @apply font-primary font-medium text-[13px] tracking-[-0.25px] leading-[15px];
+  }
 }
