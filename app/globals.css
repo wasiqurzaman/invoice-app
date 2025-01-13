@@ -5,7 +5,7 @@
 @layer base {
   :root {
     /* colors */
-    --color-primary: 12 93 250;
+    --color-primary: 124 93 250;
     --color-primary-hover: 146 119 255;
     --color-accent: 236 87 87;
     --color-accent-hover: 255 151 151;
@@ -23,8 +23,8 @@
     --color-orange: 255 143 0;
   }
 
-  [data-theme="dark"] {
-    --color-primary: 12 93 250;
+  &.dark {
+    --color-primary: 124 93 250;
     --color-primary-hover: 146 119 255;
     --color-accent: 236 87 87;
     --color-accent-hover: 255 151 151;
