@@ -3,7 +3,7 @@ import ToggleTheme from "./ToggleTheme";
 
 export default function SideBar() {
   return (
-    <div className="h-screen w-[100px] bg-sidebar flex flex-col justify-between rounded-r-[20px] overflow-hidden">
+    <div className="h-screen w-[100px] bg-sidebar flex flex-col justify-between rounded-r-[20px] overflow-hidden fixed">
       <div className="w-[100px] h-[100px] bg-primary flex items-center justify-center rounded-r-[20px] relative">
         <div className="absolute left-0 bottom-0 w-full h-1/2 bg-primary-hover rounded-tl-[20px] rounded-br-[20px]"></div>
         <Image
