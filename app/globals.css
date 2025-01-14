@@ -10,7 +10,8 @@
     --color-accent: 236 87 87;
     --color-accent-hover: 255 151 151;
     --color-text-main: 12 14 22;
-    --color-text-sm: 136 142 176;
+    --color-text-2: 136 142 176;
+    --color-text-3: 126 136 195;
     --color-sidebar: 30 33 57;
     --color-card: 255 255 255;
     --color-card-2: 249 250 254;
@@ -29,7 +30,8 @@
     --color-accent: 236 87 87;
     --color-accent-hover: 255 151 151;
     --color-text-main: 255 255 255;
-    --color-text-sm: 223 227 250;
+    --color-text-2: 223 227 250;
+    --color-text-3: 126 136 195;
     --color-sidebar: 30 33 57;
     --color-card: 30 33 57;
     --color-card-2: 37 41 69;
@@ -43,7 +45,7 @@
   }
 
   body {
-    @apply bg-bg font-primary font-medium text-[13px] tracking-[-0.25px] leading-[15px];
+    @apply bg-bg font-primary font-medium text-[13px] tracking-[-0.1px] leading-[15px];
   }
 
   .heading-lg {
@@ -53,15 +55,18 @@
     @apply font-primary font-bold text-[24px] tracking-[-0.75px] leading-[22px];
   }
   .heading-sm {
-    @apply font-primary font-bold text-[15px] tracking-[-0.25px] leading-[24px];
-  }
-  .heading-sm-v {
     @apply font-primary font-bold text-[15px] tracking-[-0.25px] leading-[15px];
   }
+  .heading-sm-v {
+    @apply font-primary font-bold text-[15px] tracking-[-0.25px] leading-[24px];
+  }
+  .heading-sm-v2 {
+    @apply font-primary font-bold text-[15px] tracking-[-0.25px] leading-[20px];
+  }
   .text-body {
-    @apply font-primary font-medium text-[13px] tracking-[-0.1px] leading-[18px];
+    @apply font-primary font-medium text-[13px] tracking-[-0.25px] leading-[15px];
   }
   .text-body-v {
-    @apply font-primary font-medium text-[13px] tracking-[-0.25px] leading-[15px];
+    @apply font-primary font-medium text-[13px] tracking-[-0.1px] leading-[18px];
   }
 }
