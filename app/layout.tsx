@@ -21,12 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${leagueSpartan.variable}  antialiased`}>
+      <body className={`${leagueSpartan.variable}  antialiased flex`}>
         <Providers>
-          <main className="flex">
-            <SideBar />
-            {children}
-          </main>
+          <SideBar />
+          <main className="ml-[100px] flex-1">{children}</main>
         </Providers>
       </body>
     </html>
