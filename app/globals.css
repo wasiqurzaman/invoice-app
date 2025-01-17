@@ -69,4 +69,10 @@
   .text-body-v {
     @apply font-primary font-medium text-[13px] tracking-[-0.1px] leading-[18px];
   }
+  .input {
+    @apply bg-white dark:bg-card border border-input-border rounded-[4px] font-primary font-bold text-[15px] tracking-[-0.25px] leading-[15px] text-textCol-main pt-[18px] pb-[15px] px-[20px] focus:border-primary-hover focus:dark:border-input-border outline-none;
+  }
+  .label {
+    @apply text-[#7E88C3] dark:text-[#DFE3FA];
+  }
 }
