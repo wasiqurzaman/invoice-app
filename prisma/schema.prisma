@@ -12,3 +12,55 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Invoice {
+  id String @id @default(cuid()) @db.VarChar(30)
+  invoiceId String @unique
+  createdAt DateTime @default(now())
+  paymentDue DateTime
+  description String @db.Text
+  paymentTerms Int
+  clientName String
+  clientEmail String
+  status Status @default(pending)
+  senderAddress SenderAddress?
+  clientAddress ClientAddress?
+  items Item[]
+  total Float
+}
+
+model SenderAddress {
+  id Int @id @default(autoincrement())
+  street String
+  city String
+  postCode String
+  country String
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+  invoiceId String @unique
+}
+
+model ClientAddress {
+  id Int @id @default(autoincrement())
+  street String
+  city String
+  postCode String
+  country String
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+  invoiceId String @unique
+}
+
+model Item {
+  id Int @id @default(autoincrement())
+  name String
+  quantity Int
+  price Float
+  total Float
+  invoice Invoice @relation(fields: [invoiceId] , references: [id])
+  invoiceId String
+}
+
+enum Status {
+  paid
+  pending
+  draft
+}
