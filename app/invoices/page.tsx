@@ -1,39 +1,12 @@
 import { promises as fs } from "fs";
 import Invoice from "../components/Invoice";
 import Image from "next/image";
-import Button from "../components/Button";
+// import Button from "../components/Button";
+import NewInvoiceButton from "../components/NewInvoiceButton";
+import { z } from "zod";
+import { invoiceSchema } from "../validationSchemas";
 
-export type InvoiceType = {
-  id: string;
-  createdAt: string;
-  paymentDue: string;
-  description: string;
-  paymentTerms: number;
-  clientName: string;
-  clientEmail: string;
-  status: "paid" | "pending" | "draft";
-  senderAddress: {
-    street: string;
-    city: string;
-    postCode: string;
-    country: string;
-  };
-  clientAddress: {
-    street: string;
-    city: string;
-    postCode: string;
-    country: string;
-  };
-  items: [
-    {
-      name: string;
-      quantity: number;
-      price: number;
-      total: number;
-    }
-  ];
-  total: number;
-};
+export type InvoiceType = z.infer<typeof invoiceSchema>;
 
 export default async function page() {
   const file = await fs.readFile(
@@ -62,7 +35,8 @@ export default async function page() {
             <option value="pending">pending</option>
             <option value="pending">draft</option>
           </select>
-          <Button variant="button1">New Invoice</Button>
+          {/* <Button variant="button1">New Invoice</Button> */}
+          <NewInvoiceButton />
         </div>
       </div>
 
