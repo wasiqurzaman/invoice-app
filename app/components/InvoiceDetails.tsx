@@ -10,7 +10,9 @@ export default function InvoiceDetails({ invoice }: { invoice: InvoiceType }) {
           <div className="flex flex-col gap-2">
             <div className="heading-sm-v">
               <span className="text-[#888EB0]">#</span>
-              <span className="text-textCol-main">{invoice?.id}</span>
+              <span className="text-textCol-main">
+                {invoice?.invoiceNumber}
+              </span>
             </div>
             <span className="text-textCol-3 dark:text-textCol-2">
               {invoice?.description}

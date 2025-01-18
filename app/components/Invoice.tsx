@@ -4,19 +4,15 @@ import { format } from "date-fns";
 import InvoiceStatus from "./IncoiceStatus";
 import Link from "next/link";
 
-interface Props {
-  invoice: InvoiceType;
-}
-
-export default function Invoice({ invoice }: Props) {
+export default function Invoice({ invoice }: { invoice: InvoiceType }) {
   return (
     <Link
-      href={`/invoices/${invoice.id}`}
+      href={`/invoices/${invoice.invoiceNumber}`}
       className="w-full h-[72px] pl-[32px] pr-[24px] py-[16px] bg-card flex items-center justify-between rounded-[8px] gap-10 shadow-sm"
     >
       <div>
         <span className="heading-sm text-textCol-3">#</span>
-        <span className="heading-sm">{invoice.id}</span>
+        <span className="heading-sm">{invoice.invoiceNumber}</span>
       </div>
       <span className="text-textCol-2">
         Due {format(new Date(invoice.paymentDue), "dd MMM yyyy")}

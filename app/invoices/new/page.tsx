@@ -4,7 +4,7 @@ import React from "react";
 export default function NewInvoicePage() {
   return (
     <div>
-      <InvoiceForm type="create" />
+      <InvoiceForm type="create" invoice={undefined} />
     </div>
   );
 }

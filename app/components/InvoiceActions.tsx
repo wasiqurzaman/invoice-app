@@ -18,7 +18,7 @@ export default function InvoiceActions({ invoice }: { invoice: InvoiceType }) {
       <div className="flex items-center gap-2">
         <Button
           variant="button3"
-          onClick={() => router.push(`/invoices/${invoice.id}/edit`)}
+          onClick={() => router.push(`/invoices/${invoice.invoiceNumber}/edit`)}
         >
           Edit
         </Button>

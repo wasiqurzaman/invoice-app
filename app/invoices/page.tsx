@@ -1,19 +1,14 @@
-import { promises as fs } from "fs";
 import Invoice from "../components/Invoice";
 import Image from "next/image";
-// import Button from "../components/Button";
 import NewInvoiceButton from "../components/NewInvoiceButton";
 import { z } from "zod";
 import { invoiceSchema } from "../validationSchemas";
 
-export type InvoiceType = z.infer<typeof invoiceSchema>;
+export type InvoiceType = z.infer<typeof invoiceSchema> & { id: string };
 
 export default async function page() {
-  const file = await fs.readFile(
-    process.cwd() + "/app/data/sample-data.json",
-    "utf8"
-  );
-  const invoices: InvoiceType[] = JSON.parse(file);
+  const res = await fetch("http://localhost:3000/api/invoices");
+  const invoices: InvoiceType[] = await res.json();
 
   return (
     <section className="flex-1 flex flex-col gap-[64px] justify-center items-center">

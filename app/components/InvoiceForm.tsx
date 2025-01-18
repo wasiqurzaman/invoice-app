@@ -18,9 +18,9 @@ export default function InvoiceForm({ type, invoice }: Props) {
   const { register, control, handleSubmit, watch } = useForm<InvoiceForm>({
     defaultValues:
       type === "edit"
-        ? { ...invoice, invoiceId: invoice?.id }
+        ? { ...invoice }
         : {
-            invoiceId: "",
+            invoiceNumber: "",
             clientEmail: "",
             clientName: "",
             createdAt: "",
@@ -64,7 +64,7 @@ export default function InvoiceForm({ type, invoice }: Props) {
       {type === "edit" && (
         <h2 className="heading-md mb-[46px]">
           Edit <span>#</span>
-          {invoice?.id}
+          {invoice?.invoiceNumber}
         </h2>
       )}
       <form

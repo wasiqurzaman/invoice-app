@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const invoiceSchema = z.object({
-  invoiceId: z.string(),
+  invoiceNumber: z.string(),
   description: z.string(),
   paymentTerms: z.number().min(1).max(30),
   clientName: z.string().min(3),
