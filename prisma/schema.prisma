@@ -16,8 +16,8 @@ datasource db {
 model Invoice {
   id String @id @default(cuid()) @db.VarChar(30)
   invoiceId String @unique
-  createdAt DateTime @default(now())
-  paymentDue DateTime
+  createdAt DateTime @default(now()) @db.Date
+  paymentDue DateTime @db.Date
   description String @db.Text
   paymentTerms Int
   clientName String

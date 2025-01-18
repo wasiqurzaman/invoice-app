@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Invoice" ALTER COLUMN "createdAt" SET DATA TYPE DATE,
+ALTER COLUMN "paymentDue" SET DATA TYPE DATE;
