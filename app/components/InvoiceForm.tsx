@@ -1,26 +1,60 @@
 "use client";
 
-import React, { useState } from "react";
 import Button from "./Button";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useFieldArray } from "react-hook-form";
 import { InvoiceType } from "../invoices/page";
 import { MdDelete } from "react-icons/md";
+import { z } from "zod";
+import { invoiceSchema } from "../validationSchemas";
 
 interface Props {
   type: "create" | "edit";
   invoice: InvoiceType | undefined;
 }
 
+type InvoiceForm = z.infer<typeof invoiceSchema>;
+
 export default function InvoiceForm({ type, invoice }: Props) {
-  const { register, handleSubmit } = useForm<InvoiceType>({
-    defaultValues: { ...invoice },
+  const { register, control, handleSubmit, watch } = useForm<InvoiceForm>({
+    defaultValues:
+      type === "edit"
+        ? { ...invoice, invoiceId: invoice?.id }
+        : {
+            invoiceId: "",
+            clientEmail: "",
+            clientName: "",
+            createdAt: "",
+            description: "",
+            paymentTerms: 1,
+            status: "pending",
+            paymentDue: "",
+            senderAddress: {},
+            clientAddress: {},
+            items: {
+              name: "",
+              quantity: 1,
+              price: 0,
+              total: 0,
+            },
+            total: 0,
+          },
   });
 
-  const onSubmit: SubmitHandler<InvoiceType> = data => {
+  const { fields, append, remove } = useFieldArray({
+    name: "items",
+    control,
+  });
+
+  const items = watch(`items`);
+
+  const onSubmit: SubmitHandler<InvoiceForm> = data => {
+    data.items = data.items.map(item => ({
+      ...item,
+      total: item.quantity * item.price,
+    }));
+    data.total = data.items.reduce((acc, item) => acc + item.total, 0);
     console.log(data);
   };
-
-  const [items, setItems] = useState(invoice?.items);
 
   return (
     <div className="max-w-[720px] bg-bg ml-[200px] mt-[50px]">
@@ -30,11 +64,11 @@ export default function InvoiceForm({ type, invoice }: Props) {
       {type === "edit" && (
         <h2 className="heading-md mb-[46px]">
           Edit <span>#</span>
-          {invoice.id}
+          {invoice?.id}
         </h2>
       )}
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        // onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col w-full gap-[49px]"
       >
         <div className="flex flex-col gap-[24px]">
@@ -168,10 +202,10 @@ export default function InvoiceForm({ type, invoice }: Props) {
                 Payment Terms
               </label>
               <select id="" className="input" {...register("paymentTerms")}>
-                <option value="Net 1 Days">Net 1 Days</option>
-                <option value="Net 7 Days">Net 7 Days</option>
-                <option value="Net 14 Days">Net 14 Days</option>
-                <option value="Net 30 Days">Net 30 Days</option>
+                <option value="1">Net 1 Days</option>
+                <option value="7 Days">Net 7 Days</option>
+                <option value="14">Net 14 Days</option>
+                <option value="30">Net 30 Days</option>
               </select>
             </div>
           </div>
@@ -198,34 +232,41 @@ export default function InvoiceForm({ type, invoice }: Props) {
                 </tr>
               </thead>
               <tbody>
-                {items.map((item, index) => (
-                  <tr key={index} className="heading-sm text-right">
+                {fields.map((field, index) => (
+                  <tr key={field.id} className="heading-sm text-right">
                     <td className="text-textCol-main py-4 text-left">
                       <input
                         type="text"
                         className="input w-full"
-                        {...register(`items[${index}].name`)}
+                        {...register(`items.${index}.name`)}
                       />
                     </td>
                     <td className="text-textCol-3 dark:text-textCol-2 py-4">
                       <input
                         type="number"
                         className="input w-[100px]"
-                        {...register(`items[${index}].quantity`)}
+                        {...register(`items.${index}.quantity`)}
                       />
                     </td>
                     <td className="text-textCol-3 dark:text-textCol-2 py-4">
                       <input
-                        type="text"
+                        type="number"
+                        step="0.01"
+                        min="0.00"
                         className="input w-[100px]"
-                        {...register(`items[${index}].price`)}
+                        {...register(`items.${index}.price`)}
                       />
                     </td>
                     <td className=" text-textCol-main py-4">
-                      <span>{items[index].total}</span>
+                      <span>
+                        ${" "}
+                        {(items[index].price * items[index].quantity).toFixed(
+                          2
+                        )}
+                      </span>
                     </td>
                     <td className="text-textCol-main pt-6 w-[80px] text-right flex items-center justify-end">
-                      <button>
+                      <button type="button" onClick={() => remove(index)}>
                         <MdDelete size={30} color="#cf4545" />
                       </button>
                     </td>
@@ -237,20 +278,25 @@ export default function InvoiceForm({ type, invoice }: Props) {
         </div>
         <Button
           variant="button6"
-          onClick={() => setItems(items => items.concat(1))}
+          type="button"
+          onClick={() => append({ name: "", price: 0, quantity: 0, total: 0 })}
         >
           + Add New Item
         </Button>
-
-        <div className="flex gap-2">
-          <Button variant="button3">Discard</Button>
-          <Button variant="button3">Cancel</Button>
-          <Button variant="button4">Save as Draft</Button>
-          <Button variant="button2" type="submit">
-            Save Changes
-          </Button>
-        </div>
       </form>
+
+      <div className="flex gap-2">
+        <Button variant="button3">Discard</Button>
+        <Button variant="button3">Cancel</Button>
+        <Button variant="button4">Save as Draft</Button>
+        <Button
+          variant="button2"
+          type="submit"
+          onClick={handleSubmit(onSubmit)}
+        >
+          Save Changes
+        </Button>
+      </div>
     </div>
   );
 }
