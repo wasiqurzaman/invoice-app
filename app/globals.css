@@ -76,3 +76,13 @@
     @apply text-[#7E88C3] dark:text-[#DFE3FA];
   }
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
